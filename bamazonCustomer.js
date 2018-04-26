@@ -12,7 +12,6 @@ var connection = mysql.createConnection({
 connection.connect(function(err) {
   if (err) throw err;
   displayInventory();
-//   start();
 });
 
 function displayInventory() {
@@ -22,10 +21,11 @@ function displayInventory() {
           let product   = element.product_name;
           let department    = element.department_name;
           let price = element.price;
+          let quantity = element.stock_quantity;
     
           console.log("sku: " +id + ", " + product + ", " + department + " department, $" + price);
         });
-        // start();
+        start();
     
       });
 };
@@ -33,20 +33,18 @@ function displayInventory() {
 function start() {
   inquirer
     .prompt({
-      name: "postOrBid",
-      type: "rawlist",
-      message: "Would you like to [VIEW] auction items, [POST] an auction or [BID] on an auction?",
-      choices: ["VIEW", "POST", "BID"]
+      name: "selectID",
+      type: "input",
+      message: "What is the sku of the product you would like to buy?"
+    },
+    {
+
+      type: "input",
+      name: "quantity",
+      message: "How many would you like to purchase"
     })
     .then(function(answer) {
-      // based on their answer, either call the bid or the post functions
-      if (answer.postOrBid.toUpperCase() === "POST") {
-        postAuction();
-      } else if(answer.postOrBid.toUpperCase() === "VIEW") {
-        viewAuction();
-      } else {
-        bidAuction();
-      }
+     console.log(results.quantity);
     });
 }
 
